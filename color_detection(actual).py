@@ -7,10 +7,18 @@
     - None will be outputted if no match (should have same consequences as yellow)
     - **NOTE**: middle of color sensor light must touch the green sticker! Or else, detects yellow background :/
     - Specific values generated thru calculating 95% confidence interval
+    
+    This file will allow also for color sensor arm control.
 """
 
-from utils.brick import EV3ColorSensor, wait_ready_sensors, TouchSensor
+from utils.brick import EV3ColorSensor, wait_ready_sensors, TouchSensor, Motor
 from time import sleep
+
+import brickpi3
+import threading
+
+BP = brickpi3.BrickPi3()
+ARM_MOTOR = Motor("B")
 
 COLOR_SENSOR = EV3ColorSensor(1) #Testing Purposes  
 Touch_Sensor = TouchSensor(2)
@@ -19,7 +27,7 @@ Touch_Sensor = TouchSensor(2)
 def get_rgb_values():
     "Collect color sensor data."
     try:
-        print("Touch Sensor is pressed... collecting rgb")
+        #print("Touch Sensor is pressed... collecting rgb")
         rgb_values = COLOR_SENSOR.get_rgb()
         if rgb_values is not None:
             print(rgb_values)
@@ -58,11 +66,42 @@ def detect_color(r, g, b):
     else:
         return None
 
-    
-if __name__ == "__main__":
+def move_arm():
     while True:
-        if Touch_Sensor.is_pressed():
-            r, g, b = get_rgb_values()
-            print(detect_color(r, g, b))
-        sleep(0.2)
+        for i in range(8):
+            ARM_MOTOR.set_dps(30)
+            sleep(0.5)
+            rgb = get_rgb_values()
+            print(detect_color(rgb[0],rgb[1],rgb[2]))
+            
+        for i in range(16):
+            ARM_MOTOR.set_dps(-30)
+            sleep(0.5)
+            rgb = get_rgb_values()
+            print(detect_color(rgb[0],rgb[1],rgb[2]))
+            
+        for i in range(8):
+            ARM_MOTOR.set_dps(30)
+            sleep(0.5)
+            rgb = get_rgb_values()
+            print(detect_color(rgb[0],rgb[1],rgb[2]))
+
+def move():
+    ARM_MOTOR.set_dps(100)
+
+def stop():
+    ARM_MOTOR.set_power(0)
+
+#The two functions we called for testing
+#move_arm()
+#stop()
+
+
+#if __name__ == "__main__":
+    #move_arm()
+#     while True:
+#         if Touch_Sensor.is_pressed():
+#             r, g, b = get_rgb_values()
+#             print(detect_color(r, g, b))
+#         sleep(0.2)
     
