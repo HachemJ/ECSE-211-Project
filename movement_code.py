@@ -2,40 +2,103 @@ from threading import Thread
 import brickpi3
 import threading
 import time
+import math
 
 # Initialize BrickPi3 instance
 BP = brickpi3.BrickPi3()
 
-LEFT_MOTOR = BP.PORT_C
-RIGHT_MOTOR = BP.PORT_D
+RIGHT_WHEEL = BP.PORT_D #The motor connected to the port D
+LEFT_WHEEL = BP.PORT_C #The motor connected to the port C
+WHEEL_RADIUS = 2.1 #In cm
+CIRCUMFERENCE = 2 * math.pi * WHEEL_RADIUS #2*pi*r
 
-def move(power, duration):
-    BP.set_motor_power(LEFT_MOTOR, -power)
-    BP.set_motor_power(RIGHT_MOTOR, -power)
-    time.sleep(2)
-    stop_all_movement()
-    
-def turn(dps, direction):
-    if direction == "left":
-        BP.set_motor_dps(LEFT_MOTOR, -dps)
-        BP.set_motor_dps(RIGHT_MOTOR, dps)
-    else:
-        BP.set_motor_dps(LEFT_MOTOR, dps)
-        BP.set_motor_dps(RIGHT_MOTOR, -dps)
-    time.sleep(10)
-    stop_all_movement()
-    
+#Stop movement
 def stop_all_movement():
-    BP.set_motor_power(LEFT_MOTOR, 0)
-    BP.set_motor_power(RIGHT_MOTOR, 0)
+    BP.set_motor_power(RIGHT_WHEEL, 0)
+    BP.set_motor_power(LEFT_WHEEL, 0)
     print("Emergency stop triggered")
-     
-#Testing movement
-#move(50, 5)
-             
-#Testing turn left
-turn(90, "left")
+
+#Moving
+def move(speed, duration, direction):
+    if direction == "forward":
+        BP.set_motor_dps(LEFT_WHEEL, -speed)
+        BP.set_motor_dps(RIGHT_WHEEL, -speed)
+    else:
+        BP.set_motor_dps(LEFT_WHEEL, speed)
+        BP.set_motor_dps(RIGHT_WHEEL, speed)
+    time.sleep(duration)
+    stop_all_movement()
     
+#Turning
+def turn(dps, duration, direction):
+    if direction == "right":
+        BP.set_motor_dps(RIGHT_WHEEL, -dps)
+        BP.set_motor_dps(LEFT_WHEEL, -0.1*dps)
+        time.sleep(duration)
+    elif direction == "left":
+        BP.set_motor_dps(RIGHT_WHEEL, -0.1*dps)
+        BP.set_motor_dps(LEFT_WHEEL, -dps)
+        time.sleep(duration)
+    stop_all_movement()
+
+#TEST TURNIN
+# def turn_alternative(dps, direction):
+#     if direction == "left":
+#         BP.set_motor_dps(RIGHT_WHEEL, -dps)
+#         BP.set_motor_dps(LEFT_WHEEL, dps)
+#         time.sleep(1)
+#     else:
+#         BP.set_motor_dps(RIGHT_WHEEL, dps)
+#         BP.set_motor_dps(LEFT_WHEEL, -dps)
+#         time.sleep(1)
+#     
+#     stop_all_movement()
+      
+    
+#THE PERFECT TRY
+# move(260, 5, "forward")
+# turn(264, "right")
+# move(260, 5.9, "forward")
+# turn(263, "left")
+#     
+
+stop_all_movement()
+    
+# turn_alternative(263, "right")
+# #move(150,2)
+# turn_alternative(263, "right")
+# #move(150,2)
+# turn_alternative(263, "right")
+# 
+# turn_alternative(263, "right")
+
+
+#Test:
+#stop_all_movement()
+
+#turn(360, "left")
+     
+###
+###Testing movement
+###
+#one full rotation
+#move_forward(360, 1)
+#
+#two full rotations
+#move_forward(720, 1)
+#stop_all_movement()    
+             
+             
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+##This is for threading
 # def sleepMe(x):
 #     print(f"Thread {x} going to sleep for 2 seconds.")
 #     time.sleep(2)
