@@ -4,30 +4,35 @@ import threading
 import time
 import math
 
+from utils.brick import Motor
+
 # Initialize BrickPi3 instance
 BP = brickpi3.BrickPi3()
 
-RIGHT_WHEEL = BP.PORT_D #The motor connected to the port D
-LEFT_WHEEL = BP.PORT_C #The motor connected to the port C
+#LEFT_WHEEL = BP.PORT_C
+#RIGHT_WHEEL = BP.PORT_B
+
+LEFT_WHEEL = Motor("C")
+RIGHT_WHEEL = Motor("D")
 WHEEL_RADIUS = 2.1 #In cm
 CIRCUMFERENCE = 2 * math.pi * WHEEL_RADIUS #2*pi*r
 
 #Stop movement
 def stop_all_movement():
-    BP.set_motor_power(RIGHT_WHEEL, 0)
-    BP.set_motor_power(LEFT_WHEEL, 0)
+    #BP.set_motor_power(RIGHT_WHEEL, 0)
+    #BP.set_motor_power(LEFT_WHEEL, 0)
+    LEFT_WHEEL.set_power(0)
+    RIGHT_WHEEL.set_power(0)
     print("Emergency stop triggered")
 
 #Moving
-def move(speed, duration, direction):
-    if direction == "forward":
-        BP.set_motor_dps(LEFT_WHEEL, -speed)
-        BP.set_motor_dps(RIGHT_WHEEL, -speed)
-    else:
-        BP.set_motor_dps(LEFT_WHEEL, speed)
-        BP.set_motor_dps(RIGHT_WHEEL, speed)
+def move(speed, duration):
+    #BP.set_motor_dps(LEFT_WHEEL, -speed)
+    #BP.set_motor_dps(RIGHT_WHEEL, -speed)
+    
+    LEFT_WHEEL.set_dps(-speed)
+    RIGHT_WHEEL.set_dps(-speed)
     time.sleep(duration)
-    stop_all_movement()
     
 #Turning
 def turn(dps, duration, direction):
@@ -39,7 +44,6 @@ def turn(dps, duration, direction):
         BP.set_motor_dps(RIGHT_WHEEL, -0.1*dps)
         BP.set_motor_dps(LEFT_WHEEL, -dps)
         time.sleep(duration)
-    stop_all_movement()
 
 #TEST TURNIN
 # def turn_alternative(dps, direction):
@@ -53,14 +57,17 @@ def turn(dps, duration, direction):
 #         time.sleep(1)
 #     
 #     stop_all_movement()
-      
-    
+   
+   
+   
+#move(260, 5)   
+   
+
 #THE PERFECT TRY
-# move(260, 5, "forward")
-# turn(264, "right")
-# move(260, 5.9, "forward")
-# turn(263, "left")
-#     
+#move(260, 5)
+#turn(264, 2, "right")
+#move(260, 5.9)
+#turn(263, 2, "left")
 
 stop_all_movement()
     
