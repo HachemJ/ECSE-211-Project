@@ -18,16 +18,22 @@ import brickpi3
 import threading
 
 BP = brickpi3.BrickPi3()
-ARM_MOTOR = Motor("B")
-EXTINGUISHER_MOTOR = Motor("D")
+ARM_MOTOR = Motor("D")
+
+#This is for dropping the cube
+EXTINGUISHER_MOTOR = Motor("A")
 
 #TESTING NAVIGATION IN THE SAME CODE TYPE SHIT
+RIGHT_MOTOR = Motor("B") #RIGHT_WHEEL
 LEFT_MOTOR = Motor("C") #LEFT_WHEEL
-RIGHT_MOTOR = Motor("A") #RIGHT_WHEEL
 
 
 COLOR_SENSOR = EV3ColorSensor(1) #Testing Purposes  
 Touch_Sensor = TouchSensor(2)
+
+def stop():
+    RIGHT_MOTOR.set_power(0)
+    LEFT_MOTOR.set_power(0)
 
 #Retrieves RGB Values when Touch Sensor pressed (touch sensor used for testing purposes)
 def get_rgb_values():
@@ -75,17 +81,31 @@ def detect_color(r, g, b):
 #DROPPING THE CUBE
 def drop_cube():
   
-    for i in range(2):
-        EXTINGUISHER_MOTOR.set_dps(-600)
-        sleep(0.2)
+    EXTINGUISHER_MOTOR.set_dps(-600)
+    sleep(0.3)
         
-        EXTINGUISHER_MOTOR.set_dps(180)
-        sleep(1)
+    EXTINGUISHER_MOTOR.set_dps(240)
+    sleep(1)
         
     EXTINGUISHER_MOTOR.set_power(0)
     print("I ran")
+ 
+#reset_arm_position
+def reset_arm_position(quarter, increment):
+    if quarter == "1st":
+        ARM_MOTOR.set_dps(-80)
+        sleep(0.2*increment)
+    elif quarter == "2nd":
+        ARM_MOTOR.set_dps(-80)
+        sleep(0.2*(6-increment))
+    elif quarter == "3rd":
+        ARM_MOTOR.set_dps(80)
+        sleep(0.2*increment)
+    else:
+        ARM_MOTOR.set_dps(80)
+        sleep(0.2*(6-increment))
 
-#Turning
+#Turning : forward
 def turn(dps, duration, direction):
     if direction == "right":
         RIGHT_MOTOR.set_dps(-dps)
@@ -95,9 +115,69 @@ def turn(dps, duration, direction):
         RIGHT_MOTOR.set_dps(-0.1*dps)
         LEFT_MOTOR.set_dps(-dps)
         sleep(duration)
-      
-    stop()
-    drop_cube()
+        
+#Turning : backwards
+def turn_reverse(dps, duration, direction, i):
+    if direction == "right":
+        RIGHT_MOTOR.set_dps(dps)
+        LEFT_MOTOR.set_dps(0.1*dps)
+        sleep(duration)
+        move_backwards(150/(7 - i), 1)
+    elif direction == "left":
+        RIGHT_MOTOR.set_dps(0.1*dps)
+        LEFT_MOTOR.set_dps(dps)
+        sleep(duration)
+        move_backwards(150/i, 1)
+        
+        
+def turn_based_on_quarter_and_increment(quarter, i):
+    if quarter == "1st":
+        turn(24*i, 1, "left")
+        move(150/i, 1)
+    elif quarter == "2nd":
+        turn(24*i, 1, "left")
+        move(150/(7 - i), 1) #worried about division by zero
+    elif quarter == "3rd":
+        turn(24*i, 1, "right")
+        move(150/i, 1)
+    else:
+        turn(24*i, 1, "right")
+        move(150/(7 - i), 1)
+            
+    
+def turn_reverse_based_on_quarter_and_increment(quarter, i):
+    if quarter == "1st":
+        turn_reverse(24*i, 1, "left", i)
+        move(150/i, 1)
+    elif quarter == "2nd":
+        turn_reverse(24*i, 1, "left", i)
+        move(150/(7 - i), 1) #worried about division by zero
+    elif quarter == "3rd":
+        turn_reverse(24*i, 1, "right", i)
+        move(150/i, 1)
+    else:
+        turn_reverse(24*i, 1, "right", i)
+        move(150/(7 - i), 1)
+        
+
+        
+def move(speed, duration):
+    
+    LEFT_MOTOR.set_dps(-speed)
+    RIGHT_MOTOR.set_dps(-speed)
+    sleep(duration)
+    
+    LEFT_MOTOR.set_power(0)
+    RIGHT_MOTOR.set_power(0)
+    
+def move_backwards(speed, duration):
+    
+    LEFT_MOTOR.set_dps(speed)
+    RIGHT_MOTOR.set_dps(speed)
+    sleep(duration)
+    
+    LEFT_MOTOR.set_power(0)
+    RIGHT_MOTOR.set_power(0)
         
 def move_robot_based_on_quarter_and_increment(quarter, increment):
     if quarter == "2nd" or quarter == "4th":
@@ -109,11 +189,27 @@ def move_robot_based_on_quarter_and_increment(quarter, increment):
         direction = "right"
         
     angle = 16*increment
-    turn(145, 1, direction)
+    turn_based_on_quarter_and_increment(quarter, increment) #6th increment
+    
+    stop()
+    
+    drop_cube()
+    
+    turn_reverse_based_on_quarter_and_increment(quarter, increment) #6th increment
+    #turn_reverse(145, 1, direction)
+    stop()
+    #turn(23, 1, direction) #1st increment
+    #move(150, 1)
+    
+    #drop_cube()
+    
+    reset_arm_position(quarter, increment)
+    
+    ARM_MOTOR.set_power(0)
     
 def move_arm(found_sticker):
     while found_sticker:
-        for i in range(6):
+        for i in range(1, 7):
             ARM_MOTOR.set_dps(80)
             sleep(0.2)
             rgb = get_rgb_values()
@@ -123,9 +219,9 @@ def move_arm(found_sticker):
                 ARM_MOTOR.set_power(0)
                 found_sticker = False
                 move_robot_based_on_quarter_and_increment("1st", i)
-                break
+                return
             print(color_detected)
-        for i in range(6):
+        for i in range(1, 7):
             ARM_MOTOR.set_dps(-80)
             sleep(0.2)
             rgb = get_rgb_values()
@@ -135,10 +231,10 @@ def move_arm(found_sticker):
                 ARM_MOTOR.set_power(0)
                 found_sticker = False
                 move_robot_based_on_quarter_and_increment("2nd", i)
-                break
+                return
             print(color_detected)
             
-        for i in range(6):
+        for i in range(1, 7):
             ARM_MOTOR.set_dps(-80)
             sleep(0.2)
             rgb = get_rgb_values()
@@ -148,10 +244,10 @@ def move_arm(found_sticker):
                 ARM_MOTOR.set_power(0)
                 found_sticker = False
                 move_robot_based_on_quarter_and_increment("3rd", i)
-                break
+                return
             print(color_detected)
             
-        for i in range(6):
+        for i in range(1, 7):
             ARM_MOTOR.set_dps(80)
             sleep(0.2)
             rgb = get_rgb_values()
@@ -161,27 +257,28 @@ def move_arm(found_sticker):
                 ARM_MOTOR.set_power(0)
                 found_sticker = False
                 move_robot_based_on_quarter_and_increment("4th", i)
-                break
+                return
             print(color_detected)
 
-def move():
-    ARM_MOTOR.set_dps(100)
-
-def stop():
-    ARM_MOTOR.set_power(0)
-    RIGHT_MOTOR.set_power(0)
-    LEFT_MOTOR.set_power(0)
-
-
-#turn(112, 1, "left")
+#turn(145, 1, "left")
+#stop()
 #move_robot_based_on_quarter_and_increment("1st", 6)
     
 #The two functions we called for testing
+move_arm(True)
+#sleep(2)
 #move_arm(True)
-stop()
+#move(260,3)
+
+
+
+
+
+#stop()
+#ARM_MOTOR.set_power(0)
     
 #drop_cube()
-    
+
     
 
 #we just need to worry about 1st and 3rd quarters logic

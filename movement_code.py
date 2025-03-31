@@ -1,7 +1,7 @@
 from threading import Thread
 import brickpi3
 import threading
-import time
+from time import sleep
 import math
 
 from utils.brick import Motor
@@ -12,8 +12,8 @@ BP = brickpi3.BrickPi3()
 #LEFT_WHEEL = BP.PORT_C
 #RIGHT_WHEEL = BP.PORT_B
 
-LEFT_WHEEL = Motor("C")
-RIGHT_WHEEL = Motor("D")
+LEFT_MOTOR = Motor("C")
+RIGHT_MOTOR = Motor("B")
 WHEEL_RADIUS = 2.1 #In cm
 CIRCUMFERENCE = 2 * math.pi * WHEEL_RADIUS #2*pi*r
 
@@ -21,8 +21,8 @@ CIRCUMFERENCE = 2 * math.pi * WHEEL_RADIUS #2*pi*r
 def stop_all_movement():
     #BP.set_motor_power(RIGHT_WHEEL, 0)
     #BP.set_motor_power(LEFT_WHEEL, 0)
-    LEFT_WHEEL.set_power(0)
-    RIGHT_WHEEL.set_power(0)
+    LEFT_MOTOR.set_power(0)
+    RIGHT_MOTOR.set_power(0)
     print("Emergency stop triggered")
 
 #Moving
@@ -30,20 +30,29 @@ def move(speed, duration):
     #BP.set_motor_dps(LEFT_WHEEL, -speed)
     #BP.set_motor_dps(RIGHT_WHEEL, -speed)
     
-    LEFT_WHEEL.set_dps(-speed)
-    RIGHT_WHEEL.set_dps(-speed)
-    time.sleep(duration)
+    LEFT_MOTOR.set_dps(-speed)
+    RIGHT_MOTOR.set_dps(-speed)
+    sleep(duration)
+    
+#Moving
+def move_backwards(speed, duration):
+    #BP.set_motor_dps(LEFT_WHEEL, -speed)
+    #BP.set_motor_dps(RIGHT_WHEEL, -speed)
+    
+    LEFT_MOTOR.set_dps(speed)
+    RIGHT_MOTOR.set_dps(speed)
+    sleep(duration)
     
 #Turning
 def turn(dps, duration, direction):
     if direction == "right":
-        BP.set_motor_dps(RIGHT_WHEEL, -dps)
-        BP.set_motor_dps(LEFT_WHEEL, -0.1*dps)
-        time.sleep(duration)
+        RIGHT_MOTOR.set_dps(-dps)
+        LEFT_MOTOR.set_dps(-0.1*dps)
+        sleep(duration)
     elif direction == "left":
-        BP.set_motor_dps(RIGHT_WHEEL, -0.1*dps)
-        BP.set_motor_dps(LEFT_WHEEL, -dps)
-        time.sleep(duration)
+        RIGHT_MOTOR.set_dps(-0.1*dps)
+        LEFT_MOTOR.set_dps(-dps)
+        sleep(duration)
 
 #TEST TURNIN
 # def turn_alternative(dps, direction):
@@ -64,10 +73,12 @@ def turn(dps, duration, direction):
    
 
 #THE PERFECT TRY
-#move(260, 5)
-#turn(264, 2, "right")
-#move(260, 5.9)
-#turn(263, 2, "left")
+move(260, 5)
+turn(315, 2, "right")
+move(260, 5.9)
+turn(305, 2, "left")
+
+move_backwards(300, 0.3)
 
 stop_all_movement()
     
