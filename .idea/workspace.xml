@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c7213ef7-9360-411c-aa8c-662cd11bf048" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/data/colorSensor/color_sensor_visualization.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/US_DATA_2x2_COMB.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/US_DATA_3x2_COMB.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/US_DATA_big_COMB.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/US_DATA_small_COMB.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_2x2_TRIAL1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_2x2_TRIAL1.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_2x2_TRIAL2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_2x2_TRIAL2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_2x2_TRIAL3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_2x2_TRIAL3.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_3x2_TRIAL2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_3x2_TRIAL2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_3x2_TRIAL3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_3x2_TRIAL3.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_big_TRIAL1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_big_TRIAL1.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_big_TRIAL2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_big_TRIAL2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_big_TRIAL3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_big_TRIAL3.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_small_TRIAL1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_small_TRIAL1.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_small_TRIAL2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_small_TRIAL2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_small_TRIAL3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/raw/US_DATA_small_TRIAL3.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/us_2x2_graph.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/us_3x2_graph.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/us_bigWall_graph.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/us_sensor_visualization.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/usSensor/us_smallWall_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/Black(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/csv/Black(5cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/Blue(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/csv/Blue(5cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/Green(2cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/csv/Green(2cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/Green(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/csv/Green(5cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/Purple(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/csv/Purple(5cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/Red(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/csv/Red(5cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/White(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/csv/White(5cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/Yellow(2cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/csv/Yellow(2cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/Yellow(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/csv/Yellow(5cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/colorSensor/Black(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/colorSensor/Black(5cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/colorSensor/Blue(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/colorSensor/Blue(5cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/colorSensor/Green(2cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/colorSensor/Green(2cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/colorSensor/Green(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/colorSensor/Green(5cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/colorSensor/Purple(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/colorSensor/Purple(5cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/colorSensor/Red(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/colorSensor/Red(5cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/colorSensor/White(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/colorSensor/White(5cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/colorSensor/Yellow(2cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/colorSensor/Yellow(2cm).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/colorSensor/Yellow(5cm).csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/colorSensor/Yellow(5cm).csv" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2v0Mfh899FVhNNbGsJY84uFMpct" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Merging master",
+    "last_opened_file_path": "C:/Users/jaddl/Documents/Etudes/University/Second year/Winter 2025/ECSE 211/Final_project"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-98f27166c754-ba05f1cad1b1-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.21829.153" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c7213ef7-9360-411c-aa8c-662cd11bf048" name="Changes" comment="" />
+      <created>1743277642983</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743277642983</updated>
+    </task>
+    <servers />
+  </component>
+</project>
